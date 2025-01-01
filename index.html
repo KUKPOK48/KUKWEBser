@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сериал</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #4c6ef5, #36a9e1, #f78c42, #f66c80);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        header img {
+            max-width: 400px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .text-container {
+            max-width: 600px;
+            margin-left: 20px;
+            padding: 20px;
+        }
+
+        .text-container h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .actors {
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin: 40px 0;
+        }
+
+        iframe {
+            width: 80%;
+            max-width: 1000px;
+            height: 500px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .season-selector {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .season-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .season-button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+
+        .episodes {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .episode-button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border-radius: 5px;
+            font-size: 1.1em;
+        }
+
+        .episode-button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+
+        .selected-episode-text {
+            font-size: 2em;
+            color: #000000;
+            font-weight: bold;
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 40px;
+        }
+
+        .season-episodes {
+            display: none;
+        }
+
+        .season-episodes.active {
+            display: block;
+        }
+
+        /* Описание серии с черным цветом текста */
+        .episode-description {
+            font-size: 1em;
+            color: black; /* Черный цвет текста для описания */
+            margin-top: 10px;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .text-container {
+                margin-left: 0;
+                padding: 10px;
+            }
+
+            header img {
+                max-width: 80%;
+                margin-bottom: 20px;
+            }
+
+            .season-selector {
+                flex-direction: column;
+            }
+
+            .episode-button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="https://github.com/KUKPOK48/fotoaut/blob/main/poster.jpg" alt="Постер сериала">
+        <div class="text-container">
+            <h1>Путешествие Забытого</h1>
+            <p class="description">Жанр: Экшн, Приключенческий, Драма, Комедия, Триллер, Ужасы, Фантастика, Фэнтези, Мистика, Детектив, Криминал, Мелодрама, Боевик, Исторический, Биографический, Семейный, Спортивный, Музыкальный, Военный, Документальный, Анимация, Мюзикл, Постапокалипсис, Романтика, Сказка, Приключенческий боевик, Артхаус, Антиутопия, Сюрреализм, Культовый, Черная комедия, Психологический, Нехудожественный, Сентиментальный, Социальный, Экспериментальный, Вестерн, Эротика.</p>
+            <p class="description">Это описание сериала. Погрузитесь в захватывающий мир, полный приключений, драм и удивительных поворотов сюжета. Каждый эпизод предлагает нечто новое, что держит вас в напряжении!</p>
+            <p class="actors"><strong>В ролях:</strong> Андреас Василий, Даник Лоситский, Армен Геворгян, Алекс Степа. Озвучка: Даник Лостский, Андреас Василий, Александ Шапка. Режисер и монтирование: Андреас Василий и Даник Лоситский.</p>
+        </div>
+    </header>
+    
+
+    <div class="video-container">
+        <iframe id="video-player" src="https://www.youtube.com/embed/RjQFSyxJ8XM?autoplay=1" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="season-selector">
+        <button class="season-button" data-season="1">Сезон 1</button>
+        <button class="season-button" data-season="2">Сезон 2</button>
+    </div>
+
+    <div id="season1-episodes" class="season-episodes active">
+        <h3>Сезон 1</h3>
+        <div class="episodes">
+            <button class="episode-button" data-video="https://www.youtube.com/embed/RjQFSyxJ8XM" data-description="В начале путешествия главный герой сталкивается с первым серьезным испытанием.">Серия 1</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/P01vOEr4OVo" data-description="Герои начинают раскрывать скрытые тайны, ставшие причиной их путешествия.">Серия 2</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/wNqMe16HjXM" data-description="В этой серии герои открывают новый путь, полный неизведанных угроз.">Серия 3</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/SSqZ1K9c8xI" data-description="На пути героям предстоит столкнуться с противниками, они его ожидали.">Серия 4</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/AiYUCkrOI3w" data-description="НЕ доступно">Серия 5</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/TMXyl6avE1Y" data-description="Конфликт достигает пика, и герои должны действовать решительно, чтобы выжить.">Серия 6</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/AiYUCkrOI3w" data-description="Не доступно">Серия 7</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/U5phYY-Cv-o" data-description="Заключительная серия сезона, где раскрываются все тайны, а герой делает финальный выбор.">Серия 8</button>
+        </div>
+    </div>
+
+    <div id="season2-episodes" class="season-episodes">
+        <h3>Сезон 2</h3>
+        <div class="episodes">
+            <button class="episode-button" data-video="https://www.youtube.com/embed/EeVJ6deJvY0" data-description="Новый сезон начинается с таинственного происшествия, которое меняет все.">Серия 1</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/euM3b2Ws6BA" data-description="Герои ищут ответы и сталкиваются с опасными врагами.">Серия 2</button>
+            <button class="episode-button" data-video="https://www.youtube.com/embed/2niPLB2aeQ0" data-description="Раскрываются герои ">Серия 3</button>
+        </div>
+    </div>
+
+    <div id="episode-description" class="selected-episode-text">
+        Выберите серию, чтобы увидеть описание
+    </div>
+
+    <footer>
+        <p>© 2025 Сайт для просмотра сериалов от KUKoldik48</p>
+    </footer>
+
+    <script>
+        // Переключение между сезонами
+        const seasonButtons = document.querySelectorAll('.season-button');
+        const season1Episodes = document.getElementById('season1-episodes');
+        const season2Episodes = document.getElementById('season2-episodes');
+
+        seasonButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const selectedSeason = this.getAttribute('data-season');
+                if (selectedSeason === '1') {
+                    season1Episodes.classList.add('active');
+                    season2Episodes.classList.remove('active');
+                } else {
+                    season1Episodes.classList.remove('active');
+                    season2Episodes.classList.add('active');
+                }
+            });
+        });
+
+        // Изменение видео и отображение текста при выборе серии
+        document.querySelectorAll('.episode-button').forEach(button => {
+            button.addEventListener('click', function() {
+                const videoSource = this.getAttribute('data-video');
+                const episodeDescription = this.getAttribute('data-description');
+                const videoPlayer = document.getElementById('video-player');
+                const descriptionElement = document.getElementById('episode-description');
+
+                videoPlayer.src = videoSource;
+                descriptionElement.textContent = episodeDescription;
+            });
+        });
+    </script>
+
+</body>
+</html>
