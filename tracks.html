@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Треки</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(45deg, #4c6ef5, #36a9e1, #f78c42, #f66c80);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav a:hover {
+            background-color: #f66c80;
+            transform: scale(1.1);
+        }
+
+        .container {
+            padding: 20px;
+            flex-grow: 1;
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Три элемента в ряду */
+            gap: 60px; /* Расстояние между треками */
+            justify-items: center; /* Выравнивание по центру */
+        }
+
+        .track-list li {
+            text-align: center;
+        }
+
+        .cover {
+            width: 150px;
+            height: 150px;
+            background-color: #333;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cover img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .cover:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .player-container {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+            color: white;
+            border-top: 2px solid #fff;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .player-container.active {
+            display: block;
+        }
+
+        /* Улучшенный стиль плеера */
+        .player-container h2 {
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            color: #f66c80;
+        }
+
+        .audio-player {
+            width: 100%;
+            max-width: 500px;
+            margin-bottom: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .controls button {
+            background-color: #4c6ef5;
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .controls button:hover {
+            background-color: #36a9e1;
+            transform: scale(1.1);
+        }
+
+        .controls button:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+
+        footer {
+            background-color: rgba(0, 0, 0, 0.6);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+            border-radius: 15px;
+        }
+
+        .tg-button {
+            background-color: #0088cc;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            font-size: 1.2em;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .tg-button:hover {
+            background-color: #007bb5;
+        }
+
+        footer a {
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Треки</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="tracks.html" class="active">Треки</a>
+            <a href="series.html">Сериал</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Список треков</h1>
+        
+        <!-- Верхняя часть с тремя треками -->
+        <ul class="track-list">
+            <li>
+                <div class="cover" onclick="playTrack(0)">
+                    <img src="https://i.imgur.com/gmHEoLL.png" alt="Трек 1" />
+                </div>
+                <p>Fruti</p>
+            </li>
+            <li>
+                <div class="cover" onclick="playTrack(1)">
+                    <img src="https://i.imgur.com/2MKhLpx.png" alt="Трек 2" />
+                </div>
+                <p>Dildochki</p>
+            </li>
+            <li>
+                <div class="cover" onclick="playTrack(2)">
+                    <img src="https://i.imgur.com/OvlWuGM.png" alt="Трек 3" />
+                </div>
+                <p>Cat gop gop</p>
+            </li>
+        </ul>
+
+        <ul class="track-list">
+            <li>
+                <div class="cover" onclick="playTrack(3)">
+                    <img src="https://i.imgur.com/4jbl3ek.png" alt="Трек 4" />
+                </div>
+                <p>no Auditorium</p>
+            </li>
+            <li>
+                <div class="cover" onclick="playTrack(4)">
+                    <img src="https://i.imgur.com/VuesHr9.png" alt="Трек 5" />
+                </div>
+                <p>пусто</p>
+            </li>
+            <li>
+                <div class="cover" onclick="playTrack(5)">
+                    <img src="https://i.imgur.com/VuesHr9.png" alt="Трек 6" />
+                </div>
+                <p>пусто</p>
+            </li>
+        </ul>
+    </div>
+
+    <div id="player" class="player-container">
+        <h2 id="track-title">Название трека</h2>
+        <audio id="audio-player" class="audio-player" controls>
+            <source src="" type="audio/mp3">
+            Ваш браузер не поддерживает аудио.
+        </audio>
+        <div class="controls">
+            <button onclick="previousTrack()">&#8592;</button>
+            <button onclick="playPauseTrack()">&#9654;</button>
+            <button onclick="nextTrack()">&#8594;</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 Сайт для просмотра от KUKoldik48</p>
+        <a href="https://t.me/kukbdaun" target="_blank">
+            <button class="tg-button">Перейти в Telegram</button>
+        </a>
+    </footer>
+
+    <script>
+        const tracks = [
+            { title: 'Трек 1 - Fruti', audio: 'https://www.dropbox.com/scl/fi/fclr3yvowg6edxlvy8rvr/111.mp3?rlkey=pejez8pl0ylatp3pvpx5w3os5&st=1djj41wc&dl=1', cover: 'https://i.imgur.com/gmHEoLL.png' },
+            { title: 'Трек 2 - Dildochki', audio: 'https://www.dropbox.com/scl/fi/lxvlybcuar85pc0bsnwiq/2222.mp3?rlkey=ymj4ndkvb41bniikvphll8veb&st=ypsbtu92&dl=1', cover: 'https://i.imgur.com/2MKhLpx.png' },
+            { title: 'Трек 3 - Cat gop gop',  audio: 'https://www.dropbox.com/scl/fi/q9fmarvfdb1c9lethq4gr/333.mp3?rlkey=cgungns4ltwi5glbrwlrr07dr&st=g5ycj5wt&dl=1', cover: 'https://i.imgur.com/OvlWuGM.png' },
+            { title: 'Трек 4 - no Auditorium',  audio: 'https://www.dropbox.com/scl/fi/bwixemqm6wrkcyufpnlpb/VID_20250102_162907_974_02012025-2.mp3?rlkey=ldiwsbwvrs0rqamt579no1rfb&st=xmyq4z1z&dl=1', cover: 'https://i.imgur.com/4jbl3ek.png' },
+            { title: 'Трек 5 -пусто', audio: 'https://example.com/track1.mp3', cover: 'https://i.imgur.com/VuesHr9.png' },
+            { title: 'Трек 6 - пусто', audio: 'https://example.com/track1.mp3', cover: 'https://i.imgur.com/VuesHr9.png' }
+        ];
+
+        let currentTrackIndex = null;
+        const player = document.getElementById('player');
+        const audioPlayer = document.getElementById('audio-player');
+        const trackTitle = document.getElementById('track-title');
+
+        function playTrack(index) {
+            currentTrackIndex = index;
+            trackTitle.textContent = tracks[index].title;
+            audioPlayer.src = tracks[index].audio;
+            audioPlayer.play();
+            player.classList.add('active');
+        }
+
+        function playPauseTrack() {
+            if (audioPlayer.paused) {
+                audioPlayer.play();
+            } else {
+                audioPlayer.pause();
+            }
+        }
+
+        function nextTrack() {
+            currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+            playTrack(currentTrackIndex);
+        }
+
+        function previousTrack() {
+            currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+            playTrack(currentTrackIndex);
+        }
+    </script>
+</body>
+</html>
