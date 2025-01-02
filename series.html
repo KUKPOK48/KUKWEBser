@@ -604,6 +604,47 @@
             }
         });
     </script>
+<script>
+    // Get the form elements
+    const reviewForm = document.getElementById('review-form');
+    const reviewsContainer = document.getElementById('reviews');
+
+    // Load stored reviews from localStorage and display them
+    function loadReviews() {
+        const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+        reviewsContainer.innerHTML = ''; // Clear the reviews container before reloading
+        reviews.forEach((review) => {
+            const reviewElement = document.createElement('div');
+            reviewElement.classList.add('review');
+            reviewElement.innerHTML = `
+                <p>${review.text}</p>
+                <p class="author">${review.name}</p>
+            `;
+            reviewsContainer.appendChild(reviewElement);
+        });
+    }
+
+    // Save new review to localStorage
+    reviewForm.addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent form submission
+        const name = document.getElementById('name').value;
+        const reviewText = document.getElementById('review-text').value;
+
+        if (name && reviewText) {
+            const reviews = JSON.parse(localStorage.getItem('reviews')) || [];
+            reviews.push({ name: name, text: reviewText });
+            localStorage.setItem('reviews', JSON.stringify(reviews)); // Store reviews in localStorage
+            loadReviews(); // Reload reviews
+        }
+
+        // Clear the form inputs
+        document.getElementById('name').value = '';
+        document.getElementById('review-text').value = '';
+    });
+
+    // Load reviews when the page loads
+    window.onload = loadReviews;
+</script>
 
 </body>
 </html>
