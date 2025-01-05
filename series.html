@@ -1,1 +1,107 @@
-http://192.168.0.15/mywebsite/images/series.html
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сериал</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(45deg, #4c6ef5, #36a9e1, #f78c42, #f66c80);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            margin: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 18px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        nav a:hover {
+            background-color: #f66c80;
+            transform: scale(1.1);
+        }
+
+        nav a.active {
+            background-color: #f66c80;
+            color: white;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60vh;
+            text-align: center;
+            color: #fff;
+            font-size: 1.5em;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: white;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Сериал</h1>
+        <nav>
+            <a href="index.html">Главная</a>
+            <a href="tracks.html">Треки</a>
+            <a href="series.html" class="active">Сериал</a>
+        </nav>
+    </header>
+
+    <div class="content">
+        ПРОБЛЕМА С СЕРВЕРАМИ, В ДАННЫЙ МОМЕНТ НЕ ДОСТУПНО
+    </div>
+
+    <footer>
+        <p>© 2025 Сайт для просмотра от KUKoldik48</p>
+    </footer>
+</body>
+</html>
